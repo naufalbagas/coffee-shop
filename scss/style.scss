@@ -1,0 +1,168 @@
+@use "var";
+$base-level: 0;
+$first-layer: 1;
+$second-layer: 2;
+$uppest: 999;
+$backest: -1;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 4000px;
+    li {
+        list-style: none;
+    }
+    a {
+        text-decoration: none;
+        color: var.$text-primary-color;
+    }
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        .navigation {
+            display: grid;
+            grid-template-columns: 35% 1fr;
+            align-items: center;
+            padding: 0.5rem 5rem;
+            
+            .brand {
+                .brand-logo {
+                    width: 5rem;
+                }
+            }
+            .menu-list {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                a {
+                    font-weight: 600;
+                    mix-blend-mode: difference;
+                    transition: all 0.3s ease-out;
+                    padding: 1rem 3rem;
+                    border-radius: 20px;
+                    &:hover {
+                        background-color: #5755556c;
+                    }
+                }
+            }
+        }
+        z-index: $uppest; // relative to VIEWPORT
+    }
+
+    .hero { // HERO SECTION
+        z-index: $base-level; // relative to VIEWPORT
+        height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        &::after {
+            z-index: $base-level; // relative to HERO SECTION
+            position: absolute;
+            content: "";
+            background: linear-gradient(
+                -30deg,
+                rgba(100, 74, 58, 0.795) 10%,
+                rgba(255, 255, 255, 0.5) 85%);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+        }
+        .hero-decorator {
+            z-index: $first-layer; // relative to HERO SECTION
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            span {
+                position: absolute;
+                background-color: rgba(100, 74, 58, 0.253);
+                border-radius: 50%;
+                width: 20rem;
+                height: 20rem;
+            }
+            .circle1 {
+                top: -7rem;
+                left: -3rem;
+            }
+            .circle2 {
+                bottom: -6rem;
+                right: calc(50vw - 4rem);
+            }
+        }
+        .text-container {
+            z-index: $second-layer; // relative to HERO SECTION
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+            padding: 0 5rem;
+            .product-name {
+                font-size: 5rem;
+                line-height: 1;
+            }
+            .second-product-name {
+                font-weight: 300;
+                font-style: italic;
+                width: fit-content;
+                border-bottom: 5px solid var.$primary-color;
+            }
+            .price-tag {
+                margin-top: 3rem;
+            }
+            .description {
+                margin-bottom: 3rem;
+            }
+            .cta-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 1rem;
+                .cta-addtocart {
+                    padding: 1rem 3rem;
+                    background-color: var.$primary-color;
+                    color: white;
+                    border-radius: 30px;
+                }
+            }
+        }
+        .image-container {
+            z-index: $second-layer;
+            width: 50vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            &::before {
+                z-index: -1;
+                position: absolute;
+                content: "";
+                background-color: var.$primary-color;
+                border-radius: 50px 0 0 0;
+                top: 8rem;
+                right: 0;
+                bottom: 0;
+                width: 50%;
+            }
+            img {
+                width: 50rem;
+                height: 50rem;
+                z-index: $base-level;
+                bottom: 1rem;
+
+            }
+        }
+    }
+}

@@ -20,15 +20,15 @@ body .header {
   top: 0;
   left: 0;
   right: 0;
+  background-color: rgb(192, 185, 172);
 }
 body .header .navigation {
   display: grid;
   grid-template-columns: 35% 1fr;
-  align-items: center;
   padding: 0.5rem 5rem;
 }
 body .header .navigation .brand .brand-logo {
-  width: 5rem;
+  width: 6rem;
 }
 body .header .navigation .menu-list {
   display: flex;
@@ -36,8 +36,8 @@ body .header .navigation .menu-list {
   align-items: center;
 }
 body .header .navigation .menu-list a {
+  color: #272728;
   font-weight: 600;
-  mix-blend-mode: difference;
   transition: all 0.3s ease-out;
   padding: 1rem 3rem;
   border-radius: 20px;
@@ -148,8 +148,7 @@ body .hero .image-container::before {
   width: 50%;
 }
 body .hero .image-container img {
-  width: 50rem;
-  height: 50rem;
+  width: 40rem;
   z-index: 0;
   bottom: 1rem;
 }

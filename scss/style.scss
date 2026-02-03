@@ -1,89 +1,124 @@
-@use "var";
-$base-level: 0;
+// COLOR VARIABLE
+$primary-color: #574133;
+$primary-color-darker: #3a2c23;
+$primary-color-lighter: #644a3a;
+$text-primary-color: #272728;
+
+// Z-INDEX VARIABLE
+$base: 0;
 $first-layer: 1;
 $second-layer: 2;
-$uppest: 999;
-$backest: -1;
+$top: 9999;
+$behind: -1;
 
-* {
+
+
+
+
+//////////////////////////////////////////////////////////////
+
+
+
+
+
+
+* {// reset
     padding: 0;
     margin: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
-body {
-    min-height: 4000px;
+body { //VIEWPORT
+
+    // list and a reset
     li {
         list-style: none;
     }
     a {
         text-decoration: none;
-        color: var.$text-primary-color;
+        color: $text-primary-color;
     }
+    //////////////////////
+
     .header {
+        z-index: $top; // relative to VIEWPORT
         position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
+        padding: 0.5rem 5rem;
+        width: 100%;
         background-color: rgb(192, 185, 172);
+        border-bottom: 3px solid $primary-color-darker;
         .navigation {
             display: grid;
             grid-template-columns: 35% 1fr;
-            padding: 0.5rem 5rem;
-            .brand {
-                .brand-logo {
-                    width: 6rem;
+            .brand img {
+                width: 6rem;
+                &:hover {
+                    filter: brightness(1.4);
                 }
-
             }
             .menu-list {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 a {
-                    color: var.$text-primary-color;
-                    font-weight: 600;
-                    transition: all 0.3s ease-out;
+                    z-index: $base; // MEMBUAT BASE INDEX BARU
+                    position: relative;
                     padding: 1rem 3rem;
-                    border-radius: 20px;
-                    &:hover {
-                        background-color: #5755556c;
+                    font-weight: 600;
+                    &::before { // PSEUDO a. (CHILD)
+                        content: "";
+                        z-index: $behind; // RELATIVE BEHIND THE BASE
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 0;
+                        height: 75%;
+                        transform: translate(-50%, -50%); // MAKE IT CENTER
+                        border-bottom: 4px solid $primary-color;
+                        transition: all 0.3s ease;
+                    }
+                    &:hover::before {
+                        width: 100%;
                     }
                 }
             }
         }
-        z-index: $uppest; // relative to VIEWPORT
     }
 
     .hero { // HERO SECTION
-        z-index: $base-level; // relative to VIEWPORT
-        height: 100vh;
-        position: relative;
+        z-index: $base; // relative to VIEWPORT
+                        // MAKING A NEW BASE
+        /// pemberian stacking context pada parent element
+        /// dapat membuat element tersebut menjadi paling dasar
+        /// tidak bisa ditembus oleh child apapun YANG INGIN MEMBELAKANGI
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        &::after {
-            z-index: $base-level; // relative to HERO SECTION
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+        opacity: 1;
+        &::before {
+            z-index: $behind;   /// BUKAN untuk pindah ke belakang parent
+                                /// tapi untuk menjadi PALING BELAKANG
             position: absolute;
+            width: 100%;
+            height: 100%;
             content: "";
             background: linear-gradient(
                 -30deg,
                 rgba(100, 74, 58, 0.795) 10%,
                 rgba(255, 255, 255, 0.5) 85%);
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100vh;
         }
         .hero-decorator {
-            z-index: $first-layer; // relative to HERO SECTION
+            z-index: $behind;   /// BUKAN untuk pindah ke belakang parent
+                                /// tapi untuk menjadi PALING BELAKANG
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
             height: 100vh;
-            span {
+            span { // ALL CRICLE
                 position: absolute;
                 background-color: rgba(100, 74, 58, 0.253);
                 border-radius: 50%;
@@ -100,12 +135,12 @@ body {
             }
         }
         .text-container {
-            z-index: $second-layer; // relative to HERO SECTION
+            z-index: $base; // relative to HERO SECTION
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 50%;
             padding: 0 5rem;
+            width: 50%;
             .product-name {
                 font-size: 5rem;
                 line-height: 1;
@@ -114,10 +149,17 @@ body {
                 font-weight: 300;
                 font-style: italic;
                 width: fit-content;
-                border-bottom: 5px solid var.$primary-color;
+                border-bottom: 5px solid $primary-color;
             }
             .price-tag {
                 margin-top: 3rem;
+                margin-bottom: 0.5rem;
+                width: fit-content;
+                cursor: pointer;
+                transition: font-size 0.3s ease;
+                &:hover {
+                    font-size: 2rem;
+                }
             }
             .description {
                 margin-bottom: 3rem;
@@ -130,9 +172,17 @@ body {
                 gap: 1rem;
                 .cta-addtocart {
                     padding: 1rem 3rem;
-                    background-color: var.$primary-color;
                     color: white;
+                    background-color: $primary-color;
+                    border-width: 0px;
                     border-radius: 30px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: $primary-color-lighter;
+                    }
+                }
+                .view-more:hover {
+                    color: $primary-color-lighter;
                 }
             }
         }
@@ -149,18 +199,18 @@ body {
                 z-index: -1;
                 position: absolute;
                 content: "";
-                background-color: var.$primary-color;
+                background-color: $primary-color;
                 border-radius: 50px 0 0 0;
-                top: 8rem;
+                top: 0;
                 right: 0;
                 bottom: 0;
                 width: 50%;
             }
             img {
-                width: 40rem;
-                z-index: $base-level;
+                width: 45rem;
+                z-index: $base;
                 bottom: 1rem;
-
+                filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.5));
             }
         }
     }

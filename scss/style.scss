@@ -54,6 +54,7 @@ body { //VIEWPORT
             grid-template-columns: 35% 1fr;
             .brand img {
                 width: 6rem;
+                transition: filter 0.3s ease;
                 &:hover {
                     filter: brightness(1.4);
                 }

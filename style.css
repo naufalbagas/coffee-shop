@@ -98,7 +98,7 @@ body .hero .hero-decorator .circle2 {
   right: calc(50vw - 4rem);
 }
 body .hero .text-container {
-  z-index: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -142,25 +142,30 @@ body .hero .text-container .cta-container .cta-addtocart {
   border-width: 0px;
   border-radius: 30px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 body .hero .text-container .cta-container .cta-addtocart:hover {
   background-color: #644a3a;
+  scale: 1.1;
+}
+body .hero .text-container .cta-container .view-more {
+  transition: all 0.3s ease;
 }
 body .hero .text-container .cta-container .view-more:hover {
   color: #644a3a;
+  scale: 1.1;
 }
 body .hero .image-container {
-  z-index: 2;
-  width: 50vw;
+  z-index: 0;
   height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
 }
 body .hero .image-container::before {
-  z-index: -1;
+  z-index: 0;
   position: absolute;
   content: "";
   background-color: #574133;
@@ -171,9 +176,8 @@ body .hero .image-container::before {
   width: 50%;
 }
 body .hero .image-container img {
-  width: 45rem;
   z-index: 0;
-  bottom: 1rem;
+  width: 45rem;
   filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.5));
 }
 
